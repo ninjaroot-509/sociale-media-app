@@ -1,0 +1,111 @@
+{% extends "feed/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block cssfiles %}
+{% endblock cssfiles %}
+{% block searchform %}
+<form class="form-inline my-2 my-lg-0 ml-5" action="{% url 'search_arts' %}" method="get">
+  <input name="p" type="text" placeholder="Search arts by tags..">
+  <button class="btn btn-success my-2 my-sm-0 ml-4" type="submit">Search</button>
+</form>
+{% endblock searchform %}
+{% block content %}
+	<div class="container">
+	    <div class="row">
+	      <div class="col-md-8">
+	        <div class="card card-signin my-5">
+	          <div class="card-body">
+	          	<a href="{{ art.user_name.profile.get_absolute_url }}"><img src="{{ art.user_name.profile.image.url }}" class="rounded-circle" width="30" height="30" alt=""></a>
+	          	<a class="text-dark" href="{{ art.user_name.profile.get_absolute_url }}"><b>{{ art.user_name }}</b></a>
+	          	<br><small class="text-muted">Posted on {{ art.date_posted }}</small>
+	          	<br><br>
+	            <p class="card-text text-dark">{{ art.description }}</p>
+	          </div>
+	          <a href="{{ art.pic.url }}"><img class="card-img-top" src="{{ art.pic.url }}" alt=""></a>
+	          {% if art.tags %}
+	          <br><p class="text-danger ml-3"><b>Tags: <i>{{ art.tags }}</i></b></p>
+	          {% endif %}
+	          <div class="card-footer">
+	          	<button class="btn btn-white mr-3 like" id="{{ art.id }}">
+			        {% if is_liked %}
+			            <a href="{% url 'art-like' %}" style="color:red;" id="likebtn{{ art.id }}"> Unlike | {{art.likes.count}}</a>
+			        {% else %}
+			            <a href="{% url 'art-like' %}" style="color:green;" id="likebtn{{ art.id }}"> Like | {{art.likes.count}}</a>
+			        {% endif %}
+			    </button>
+
+	          	{% if art.user_name == user %}
+				<a class="btn btn-outline-info mr-3" href="{% url 'art-update' art.id %}">Update</a>
+				<a class="btn btn-outline-danger" href="{% url 'art-delete' art.id %}">Delete</a>
+				{% endif %}
+	          </div>
+	        </div>
+	  	   </div>
+	    </div>
+	    <br>
+	    <h4>Comments</h4>
+	    <div class="row">
+	    	<div class="col-md-8">
+	    		<div class="card card-signin my-5">
+	    			<div class="card-body">
+	    				<form class="form-signin" method = "POST">
+	    					{% csrf_token %}
+				            <fieldset class="form-group"><br>
+				                {{ form|crispy }}
+				            </fieldset>
+				            <div class="form-group">
+				                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Comment</button><br>
+				            </div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class="row">
+	    	<div class="col-md-8">
+	    		{% if art.details.all %}
+	    		<div class="card card-signin my-5">
+	    		{% for detail in art.details.all %}
+	    			<div class="card-body">
+	    				<a href="{{ detail.username.profile.get_absolute_url }}">
+	    					<img src="{{ detail.username.profile.image.url }}" class="rounded-circle" width="30" height="30" alt="">
+	    				</a>
+	          			<a class="text-dark" href="{{ detail.username.profile.get_absolute_url }}"><b>{{ detail.username }}</b></a>
+	          			<br><small>{{ detail.comment_date }}</small><br><br>
+	          			<p class="card-text text-dark">{{ detail.comment }}</p>
+	    			</div>
+	    			<hr class="my-1">
+	    		{% endfor %}
+	    		</div>
+	    		{% else %}
+	    			<p>No comments to show!</p>
+	    		{% endif %}
+	    	</div>
+	    </div>
+	</div>
+{% endblock content %}
+{% block jsfiles %}
+<script>
+	$(".like").click(function (e) {
+    var id = this.id;
+    var href = $('.like').find('a').attr('href');
+    e.preventDefault();
+
+    $.ajax({
+        url: href,
+        data: {
+          'likeId': id
+        },
+        success: function(response){
+          if(response.liked){
+            $('#likebtn' + id).html("Unlike | {{art.likes.count}}");
+            $('#likebtn' + id).css("color", "red")
+          }
+          else{
+            $('#likebtn' + id).html("Like | {{art.likes.count}}");
+            $('#likebtn' + id).css("color", "green")
+          }
+        }
+      })
+});
+</script>
+{% endblock jsfiles %}

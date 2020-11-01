@@ -1,0 +1,290 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Quid Arts</title>
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  
+  <header class="masthead">
+    <div class="pt-4">
+      <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <img src="https://avada.theme-fusion.com/galerie/wp-content/uploads/sites/117/2019/02/logotype.png" alt="devenir membre" class="img-fluid logo"> 
+        </a>
+        <a class="nav-button ml-auto">
+          <span id="nav-icon3">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center text-white">
+          <h1 class="font-weight-light">QuidArts, une initiative initiative vers un monde nouveau</h1>
+          <p class="lead">L'amour déplaît souvent, lorsqu'il veut à tout prix plaire. </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="fixed-top main-menu">
+    <div class="flex-center p-5">
+      <ul class="nav flex-column">
+        <li class="nav-item delay-1"><a class="nav-link" href="#">Acceuil</a></li>
+        <li class="nav-item delay-2"><a class="nav-link" href="#">A propos</a></li>
+        <li class="nav-item delay-3"><a class="nav-link" href="#">Gallerie</a></li>
+        <li class="nav-item delay-4"><a class="nav-link" href="#">Categories</a></li>
+        <li class="nav-item delay-5"><a class="nav-link" href="#">Artistes</a></li>
+        <li class="nav-item delay-6"><a class="nav-link" href="#">Blog</a></li>
+        <li class="nav-item delay-7"><a class="nav-link" href="#">S'inscrire</a></li>
+        <li class="nav-item delay-7"><a class="nav-link" href="#">Se connecter</a></li>
+      </ul>
+    </div>
+  </div>
+  
+
+  <main>
+    <!-- categories-->
+  <div class="container mt-4 mb-5">
+    <div class="text-center">
+      <h2 class="h1-responsive font-weight-bold my-5 title">Categories</h2>
+    </div>
+    <div class="row">
+      {% for cate in cates %}
+      <div class="col-md-3 col-sm-6 mb-3">
+        <div class="view z-depth-1">
+          <a href="{% url 'category' slug=cate.slug %}"><img src="{{cate.image.url}}" class="img-fluid rounded" alt="{{cate.title|upper }}">
+          <div class="mask flex-center waves-effect waves-light rounded">
+            <p style="color: white; font-size: 30px;">{{cate.title}}</p>
+          </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+
+  
+  </div>
+
+  <!-- end categories-->
+
+<!--citation-->
+    <div class="container mb-5">
+      <div class="quote waves-effect waves-light">
+        <div class="quote-content">
+            <p><< Je peux faire pleurer quand je le veux, je l'ai fait plusieurs fois, mais je trouve que c'est un peu inutile ; je trouve que la vie est tellement belle qu'on n'a pas le temps de pleurer. On a assez d'emmerdements pour en plus faire pleurer les gens. >></p>
+        </div>
+        <div class="quote-author mt-2">
+            <h5>Henri Salvador</h5>
+        </div>
+      </div>
+    </div>
+  <!--end citation-->
+
+  <!-- devenir membre -->
+
+    <div class="container mb-5 become-member">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <img src="https://stpetersnewman.co.uk/wp-content/uploads/2018/02/stock-vector-art-pop-art-illustration-pop-art-design-template-for-art-gallery-art-studio-school-of-the-arts-550002070.jpg" class="img-fluid rounded" alt="placeholder" >
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12 text-center become-member-text-box"> 
+          <h3 class="title become-member-title " style="font-size: 35px; font-weight: bold;">Rejoignez la communaut&eacute; </h3>
+          <br /.>
+          <p class="become-member-p">Ouvrez votre gallerie d&egrave;s maintenant</p>
+          <a class="btn btn-outline-custom waves-effect" href="#">S'inscrire</a>
+        </div>
+      </div>
+    </div>
+
+    <!--end devenir membre-->
+
+    <!-- newsletter-->
+    <div class="container text-center newsletter mb-5">
+      <div class="newsletter-box">
+        <h3 class="title newsletter-title">Recevez des mises à jour sur nos prochains articles</h3>
+        <form class="mb-4">
+          <input class="newsletter-input" type="text" placeholder="Search" aria-label="Search" style="width: 75%;">
+          <button class="btn newsletter-button waves-effect" type="submit">S'inscrire</button>
+        </form>
+        <p class="newsletter-text">Nous traiterons les données personnelles que vous avez fournies
+          conformément à notre politique de confidentialité.</p>
+      </div>
+    </div>
+    <!-- newsletter-->
+
+{% if posts %}
+    <!-- blog 3 post-->
+  <section class="text-center my-5 container">
+
+    <h2 class="h1-responsive font-weight-bold my-5 title">Articles r&eacute;cents</h2>
+    <div class="row">
+        {% for post in posts %}
+              <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+          
+                <div class="view overlay z-depth-1 mb-4">
+                  <img src="{{ post.pic.url }}" class="img-fluid rounded" alt="placeholder" >
+                  <a>
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <h4 class="font-weight-bold mb-3"><strong>{{ post.title }}</strong></h4>
+                <p>by <a class="font-weight-bold">{{ post.user_name }}</a>, {{ post.created_on }}</p>
+                <p class="dark-grey-text"> {{ post.description|truncatechars:20 }} </p>
+                <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-custom waves-effect">voire plus...</a>                
+              </div>
+
+            {% endfor %}
+    </div>
+  </section>
+  <!-- end blog post-->
+{% endif %}
+
+  </main>
+
+  <!-- footer-->
+
+  <footer class="page-footer font-small unique-color-dark">
+
+    <div style="background-color: #6351ce;">
+      <div class="container">
+  
+        <div class="row py-4 d-flex align-items-center">
+  
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+            <h6 class="mb-0">Connectez-vous avec nous sur les réseaux sociaux!</h6>
+          </div>
+  
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+  
+            <a class="fb-ic">
+              <i class="fab fa-facebook-f white-text mr-4"> </i>
+            </a>
+            <a class="tw-ic">
+              <i class="fab fa-twitter white-text mr-4"> </i>
+            </a>
+            <a class="li-ic">
+              <i class="fab fa-linkedin-in white-text mr-4"> </i>
+            </a>
+            <a class="ins-ic">
+              <i class="fab fa-instagram white-text"> </i>
+            </a>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+    </div>
+  
+    <div class="container text-center text-md-left mt-5">
+  
+      <div class="row mt-3">
+  
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+  
+          <h6 class="text-uppercase font-weight-bold">Quid Arts</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>Une galerie d'art num&eacute;rique d&eacute;stin&eacute;e &agrave; permettre aux artistes et artisans ha&iuml;tiens, de promouvoire eux m&ecirc;mes leurs travaux.</p>
+  
+        </div>
+  
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+  
+          <h6 class="text-uppercase font-weight-bold">Menu</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <a href="/home">Galleries</a>
+          </p>
+          <p>
+            <a href="/artistes">Artistes</a>
+          </p>
+          <p>
+            <a href="/blog">Blog</a>
+          </p>
+          <p>
+            <a href="users/sign_up">S'inscrire</a>
+          </p>
+          <p>
+            <a href="users/sign_in">Se connecter</a>
+          </p>
+  
+        </div>
+  
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+  
+          <h6 class="text-uppercase font-weight-bold">Partenaires</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <a href="https://spiderdev.xyz" target="blank">MrSpider DEV</a>
+          </p>
+          <p>
+            <a href="https://about.me/noelson" target="blank">MR.x DEV</a>
+          </p>
+          <p>
+            <a href="http://doctypecoders.com" target="blank">DOCTYPE_CODERS</a>
+          </p>
+          <p>
+            <a href="https://web.facebook.com/Authentique-Ecole-dart-1655604024722636/" target="blank">AUTHENTIQUE ECOLE D'ART</a>
+          </p>
+          <p>
+            <a href="http://alezgrafik.com" target="blank">ALEZ-GRAFIK</a>
+          </p>
+          <p>
+            <a href="https://quidhaiti.com" target="blank">QUID HAITI</a>
+          </p>
+  
+        </div>
+  
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  
+          <h6 class="text-uppercase font-weight-bold">Contact</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <i class="fas fa-home mr-3"></i> Haiti W.I</p>
+          <p>
+            <i class="fas fa-envelope mr-3"></i> info@quidarts.com</p>
+          <p>
+            <i class="fas fa-phone mr-3"></i> + 509 48497290</p>
+          <p>
+            <i class="fas fa-phone mr-3"></i> + 509 40533098</p>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="https://mquidarts.com/">QuidArts</a> developped by 
+      <a href="http://doctypecoders.com" target="blank">DOCTYPE_CODERS</a>
+    </div>
+  
+  </footer>
+
+  <!--end fotter-->
+
+
+  <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+ 
+</body>
+</html>
